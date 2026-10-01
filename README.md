@@ -49,7 +49,7 @@
 | **E3** | Microsoft 365 E3 |
 | **E5** | Microsoft 365 E5 |
 | **PS** | Microsoft Purview Suite |
-| **SP** | Microsoft Defender Suite |
+
 
 ---
 
