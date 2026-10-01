@@ -94,19 +94,19 @@ The tool deploys a standardized sensitivity labeling framework.
 
 ### Public
 
-Content intended for unrestricted use.
+    Content intended for unrestricted use.
 
 ### General
 
-Internal business information.
+    Internal business information.
 
 ### Confidential
 
-Business sensitive information requiring protection.
+    Business sensitive information requiring protection.
 
 ### Highly Confidential
 
-Critical business information requiring the highest protection level.
+    Critical business information requiring the highest protection level.
 
 ---
 
