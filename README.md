@@ -23,10 +23,15 @@
 
 ```text
 /
-├── Documentation/
-│   ├── DeploymentGuide.md
-│   ├── PolicyDescriptions.md
-│   └── Screenshots/
+├── .gilt/
+│    └── hooks/
+│    ├── info
+│    ├── logs
+│    ├── objects
+│    └──  refs
+│
+├── .github/
+│   └── copilot-instructions.md
 │
 ├── Products/
 │   └── Purview/
@@ -35,7 +40,11 @@
 │       └── Templates/
 │
 ├── LICENSE
-├── Security.md
+├── .gitignore
+├──_config.yml
+├── CHANGELOG.md
+├── Gemfile
+├── index.md
 └── README.md
 ```
 
