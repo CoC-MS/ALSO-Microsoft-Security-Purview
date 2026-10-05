@@ -222,28 +222,6 @@ A successful validation should end with a deployment summary similar to the foll
 
 To run the Microsoft Purview Best Practice deployment, the deployment account must have one of the following permission options:
 
-### Option 1: Global Administrator
-
-Assign the **Global Administrator** role to the deployment account.
-
-### Option 2: Least-Privilege Role Combination
-
-Instead of Global Administrator, assign all of the following roles:
-
-- **Compliance Administrator**
-- **SharePoint Administrator**
-- **Exchange Administrator**
-- **Cloud Application Administrator**
-- **Groups Administrator**
-
-> [!IMPORTANT]
-> If you use the least-privilege option, all roles listed above must be assigned to the same deployment account before running the script.
-
-> [!TIP]
-> If your organization uses Microsoft Entra Privileged Identity Management (PIM), activate all required roles before starting the `-WhatIf` validation or the production deployment.
-
-> [!IMPORTANT]
-> `OK` in a WhatIf summary means the corresponding stage completed its preview path. It does not mean that the configuration was deployed.
 
 ### Step 2: Run the Deployment
 
@@ -262,37 +240,7 @@ A successful deployment should end with a summary similar to the following:
 
 In the example output, retention is shown as `Skipped` because `-ApplyRetention` was not used.
 
-### Deploy with Retention
 
-```powershell
-.\Deploy-PurviewBestPractice.ps1 `
-    -TenantAdminUpn "admin@contoso.com" `
-    -SharePointAdminUrl "https://contoso-admin.sharepoint.com" `
-    -AutoInstallModules `
-    -ApplyRetention
-```
-
-### Adopt Existing Objects
-
-Use this option only after reviewing the existing tenant configuration:
-
-```powershell
-.\Deploy-PurviewBestPractice.ps1 `
-    -TenantAdminUpn "admin@contoso.com" `
-    -SharePointAdminUrl "https://contoso-admin.sharepoint.com" `
-    -AutoInstallModules `
-    -AdoptExisting
-```
-
-### Deploy Only the Business Premium Scope
-
-```powershell
-.\Deploy-PurviewBestPractice.ps1 `
-    -TenantAdminUpn "admin@contoso.com" `
-    -SharePointAdminUrl "https://contoso-admin.sharepoint.com" `
-    -AutoInstallModules `
-    -BPOnly
-```
 
 ## 🧩 Main Parameters
 
