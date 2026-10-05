@@ -218,7 +218,29 @@ Replace the example values with the tenant administrator UPN and SharePoint admi
 
 A successful validation should end with a deployment summary similar to the following:
 
-![Successful WhatIf validation](Images/WhatIf-Success.png)
+![Successful WhatIf validation](Images/WhatIf-Success.png)## 🔐 Required Administrator Roles
+
+To run the Microsoft Purview Best Practice deployment, the deployment account must have one of the following permission options:
+
+### Option 1: Global Administrator
+
+Assign the **Global Administrator** role to the deployment account.
+
+### Option 2: Least-Privilege Role Combination
+
+Instead of Global Administrator, assign all of the following roles:
+
+- **Compliance Administrator**
+- **SharePoint Administrator**
+- **Exchange Administrator**
+- **Cloud Application Administrator**
+- **Groups Administrator**
+
+> [!IMPORTANT]
+> If you use the least-privilege option, all roles listed above must be assigned to the same deployment account before running the script.
+
+> [!TIP]
+> If your organization uses Microsoft Entra Privileged Identity Management (PIM), activate all required roles before starting the `-WhatIf` validation or the production deployment.
 
 > [!IMPORTANT]
 > `OK` in a WhatIf summary means the corresponding stage completed its preview path. It does not mean that the configuration was deployed.
