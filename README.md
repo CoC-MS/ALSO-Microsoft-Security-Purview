@@ -1,358 +1,358 @@
-# 🛡️ ALSO Microsoft Purview Best Practice Tool
+# 🛡️ ALSO Microsoft Purview Best Practice Deployment Toolkit
 
-> A collection of Microsoft Purview best practice configurations, sensitivity labels, label policies, data loss prevention policies, endpoint protection controls and AI security policies designed to help organizations accelerate Microsoft Purview deployments and implement Microsoft Security best practices.
->
-> **Works with Microsoft 365 Business Premium, Microsoft 365 E3, Microsoft 365 E5 and Microsoft Purview Suite.**
+A PowerShell-based deployment toolkit that helps organizations deploy a reusable Microsoft Purview security and compliance baseline.
 
----
+The toolkit automates tenant settings, sensitivity labels, label publishing, Data Loss Prevention policies, sensitive information type policies, optional retention, and AI governance controls.
 
 > [!IMPORTANT]
-> ⚠️ IMPORTANT: Read this before deploying any configurations.
+> Always run the toolkit with `-WhatIf` first. Review every proposed change before running a real deployment in a production tenant.
+
+## 📋 Overview
 
 | Resource | Description |
-|-----------|-------------|
-| 🛡️ **Security Information** | View Security Policy |
-| 📖 **Policy Descriptions** | View Policy Description |
-| 🚀 **Before Deployment** | Read Before Deploying Policies |
+|---|---|
+| 🛡️ Tenant settings | Enables the configured Microsoft Purview tenant-level settings. |
+| 🏷️ Sensitivity labels | Creates or updates the configured sensitivity label taxonomy. |
+| 📢 Label publishing policy | Publishes selected labels and configures default labeling behavior. |
+| 🚫 Label-based DLP | Protects labeled content across Exchange, SharePoint, OneDrive, and supported endpoints. |
+| 🔎 SIT-based DLP | Detects configured sensitive information types in external Exchange messages. |
+| 🗃️ Retention | Optionally deploys the configured Exchange retention policy. |
+| 🤖 AI governance | Deploys the configured Microsoft 365 Copilot DLP control. |
+| 📄 Reporting | Generates an HTML deployment report unless reporting is disabled. |
 
----
-
-# 📂 File Structure
+## 📂 Repository Structure
 
 ```text
 /
-├── .git/
-├── .github/
-│   └── copilot-instructions.md
-│
-├── Products/
-│   └── Purview/
-│       ├── Deploy-PurviewBestPractice.ps1
-│       ├── PurviewConfig.psd1
-│       └── Templates/
-│
-├── LICENSE
-├── SECURITY.md
-├── README.md
-├── .gitignore
-├── _config.yml
-├── CHANGELOG.md
-├── Gemfile
-└── index.md
+├── Deploy-PurviewBestPractice.ps1
+├── Config/
+│   └── PurviewConfig.psd1
+├── Modules/
+│   ├── Connect-PurviewServices.ps1
+│   ├── Setup-TenantSettings.ps1
+│   ├── Setup-SensitivityLabels.ps1
+│   ├── Setup-DLP.ps1
+│   ├── Setup-Retention.ps1
+│   ├── Setup-AIGovernance.ps1
+│   ├── PurviewRunLog.ps1
+│   └── Write-PurviewHtmlReport.ps1
+├── Images/
+│   ├── WhatIf-Success.png
+│   └── Deployment-Success.png
+└── README.md
 ```
 
----
+> [!NOTE]
+> The main script expects the configuration file at `Config\PurviewConfig.psd1` and the required deployment modules inside the `Modules` folder.
 
-# 📄 License Requirements
+## ⚙️ What the Toolkit Deploys
 
-| Tag | Required License |
-|------|------|
-| **BP** | Microsoft 365 Business Premium |
-| **E3** | Microsoft 365 E3 |
-| **E5** | Microsoft 365 E5 |
-| **PS** | Microsoft Purview Suite |
-| **SP** | Microsoft Defender Suite |
+### 1. Tenant Settings
 
----
+The baseline configuration includes:
 
-# 📖 Naming Convention
+- Unified Audit Log
+- Sensitivity labels for PDF files
+- Azure Information Protection integration in SharePoint
+- Optional sensitivity label co-authoring
+- Optional Premium Audit configuration
 
-All templates follow the naming format below:
+### 2. Sensitivity Labels
 
-```text
-<License>-ALSO-<Technology>-<Policy Name>
-```
+#### Public
 
-## Examples
+Business data approved for public consumption. No encryption or content marking is applied.
 
-```text
-BP-ALSO-DLP-IBAN-and-Bank-Account-Numbers
+#### General
 
-BP-ALSO-DLP-Credit-Card-Numbers
+Business data not intended for public consumption but shareable externally when appropriate.
 
-E5-PS-ALSO-DLP-Endpoint-Confidential-and-HC
+- **Anyone (unrestricted):** General business data that may be shared externally.
+- **All Employees (unrestricted):** General business data intended for employees.
 
-E5-SP-ALSO-AI-Block-Copilot-Highly-Confidential
-```
+#### Confidential
 
----
+Sensitive business data that could cause damage if shared with unauthorized people.
 
-# 🧩 Naming Components
+- **All Employees:** Internal confidential data. A footer can be applied when content marking is enabled.
+- **Trusted People:** Protected content for trusted internal or external recipients. User-defined encryption is used.
 
-| Component | Description |
-|------------|------------|
-| License | Required Microsoft License |
-| ALSO | Organization Identifier |
-| Technology | DLP, Label, AI, Endpoint |
-| Policy Name | Policy Description |
+#### Highly Confidential
 
----
+Very sensitive business data requiring the highest protection.
 
-# 🔐 Included Components
+- **All Employees:** Tenant-scoped template encryption is applied.
+- **Specific People:** Explicitly selected recipients receive access. Do Not Forward behavior is configured for Outlook.
 
-## 🏷️ Sensitivity Labels
+### 3. Label Publishing Policy
 
-The tool deploys a standardized Microsoft Purview sensitivity labeling framework.
+**Policy name:** `BP-ALSO - Default Label Policy`
 
-### Implemented Labels
+The policy publishes the configured baseline labels to users and includes:
 
-```text
-Public
-General
-Confidential
-Highly Confidential
-```
+- Mandatory labeling
+- Justification when lowering a label
+- Automatic attachment labeling behavior
+- Default document label: `AllEmployees`
+- Default email label: `GeneralAnyone`
 
-### Public
+### 4. Label-based DLP Policies
 
-Content intended for unrestricted use.
+#### BP-ALSO - DLP - Confidential and HC external (EXO)
 
-### General
+Blocks Exchange messages labeled Confidential or Highly Confidential from being sent outside the organization.
 
-Internal business information.
+#### BP-ALSO - DLP - Confidential and HC external (SPO+ODB)
 
-### Confidential
+Blocks external sharing of SharePoint and OneDrive content labeled Confidential or Highly Confidential.
 
-Business sensitive information requiring protection.
+#### E5-PS-ALSO - DLP - Endpoint Confidential and HC
 
-### Highly Confidential
+Audits the following activities for labeled content on supported endpoints:
 
-Critical business information requiring the highest protection level.
+- Copy and paste
+- Printing
+- Copying to removable media
+- Copying to a network share
 
----
+### 5. Sensitive Information Type DLP Policies
 
-## 📚 Label Policies
+The toolkit includes Exchange DLP policies for external messages containing:
 
-### BP-ALSO-Label-Publishing-Policy
+| Policy | Sensitive information detected |
+|---|---|
+| `BP-ALSO - DLP - Credit Card Numbers (EXO)` | Credit card numbers |
+| `BP-ALSO - DLP - IBAN and Bank Account Numbers (EXO)` | International Bank Account Numbers |
+| `BP-ALSO - DLP - EU Social Security Numbers (EXO)` | EU social security numbers |
+| `BP-ALSO - DLP - Swiss AHV Numbers (EXO)` | Swiss AHV numbers |
+| `BP-ALSO - DLP - Passport Numbers DACH-EU (EXO)` | Selected EU, German, and Swiss passport numbers |
+| `BP-ALSO - DLP - Tax ID and VAT DACH (EXO)` | Selected German, Austrian, and Swiss tax or VAT numbers |
 
-Publishes sensitivity labels to users and Microsoft 365 applications.
+The configuration uses a minimum count of `1`, a maximum count of `500`, and a minimum confidence level of `85`.
 
----
+> [!NOTE]
+> The baseline starts DLP policies in simulation mode because `DlpStartInSimulation` is set to `$true`. Review simulation results before moving policies to enforcement.
 
-# 🚫 Data Loss Prevention Policies
+### 6. Retention
 
-### BP-ALSO-DLP-IBAN-and-Bank-Account-Numbers
+**Policy name:** `BP-ALSO - Exchange 7-year retention`
 
-Detects and protects IBAN and bank account information across Microsoft 365 workloads.
+The configured policy retains Exchange content for 2,555 days from creation and then deletes it. Retention is not deployed by default and requires `-ApplyRetention`.
 
----
+> [!WARNING]
+> Review the retention duration and deletion behavior with the customer before deployment. Do not enable retention without confirming legal, regulatory, and business requirements.
 
-### BP-ALSO-DLP-Credit-Card-Numbers
+### 7. AI Governance
 
-Protects payment card information using Microsoft built-in Sensitive Information Types.
+**Policy name:** `E5-PS-ALSO - AI - Block Copilot for Highly Confidential`
 
----
+The policy prevents Microsoft 365 Copilot experiences from processing content labeled Highly Confidential.
 
-### BP-ALSO-DLP-Personal-Data
+> [!NOTE]
+> Microsoft 365 Copilot DLP enforcement requires appropriate per-user licensing. Policy changes can take time before enforcement begins.
 
-Protects personally identifiable information such as national IDs, passports and tax identifiers.
+## ✅ Before Deployment
 
----
+Complete the following checks before running the toolkit:
 
-# ☁️ Exchange Online Protection
+1. Use PowerShell 7.0 or later.
+2. Download or clone the complete repository.
+3. Keep the original folder structure unchanged.
+4. Review `Config\PurviewConfig.psd1`.
+5. Confirm the sensitivity labels, DLP rules, retention settings, and AI controls match the customer requirements.
+6. Use an account with the required permissions for the selected Purview workloads.
+7. Test in a pilot tenant before deploying to production.
+8. Run `-WhatIf` before the real deployment.
 
-### BP-ALSO-DLP-Exchange-Confidential-Data
+## 🚀 How to Run
 
-Protects sensitive information shared through Exchange Online.
-
----
-
-# 📁 SharePoint and OneDrive Protection
-
-### BP-ALSO-DLP-SharePoint-OneDrive-Confidential-Data
-
-Protects confidential information stored in SharePoint Online and OneDrive for Business.
-
----
-
-# 💬 Microsoft Teams Protection
-
-### BP-ALSO-DLP-Teams-Confidential-Data
-
-Protects confidential information shared through Microsoft Teams chats and channels.
-
----
-
-# 💻 Endpoint DLP Policies
-
-### E5-PS-ALSO-DLP-Endpoint-Confidential-and-HC
-
-Blocks unauthorized actions involving Confidential and Highly Confidential files on managed devices.
-
-#### Protected Activities
-
-```text
-USB Copy
-Print
-Clipboard Copy
-Browser Upload
-Remote Session
-Network Share Copy
-```
-
----
-
-# 🤖 AI Protection Policies
-
-### E5-SP-ALSO-AI-Block-Copilot-Highly-Confidential
-
-Prevents Microsoft 365 Copilot from accessing Highly Confidential content.
-
----
-
-### E5-SP-ALSO-AI-Block-M365Chat-Highly-Confidential
-
-Prevents Microsoft 365 Chat from processing Highly Confidential information.
-
----
-
-### E5-SP-ALSO-AI-Block-External-AI-Websites
-
-Blocks access to unauthorized AI services according to organizational security requirements.
-
-Examples include:
-
-```text
-ChatGPT
-Google Gemini
-Claude
-Perplexity
-DeepSeek
-```
-
----
-
-# 🚀 Before Deployment
-
-> [!IMPORTANT]
-> PLEASE ENSURE ALL REQUIREMENTS ARE COMPLETED BEFORE DEPLOYMENT.
-
-## Required Roles
-
-- Global Administrator
-- Purview Administrator
-- Compliance Administrator
-
-## Required Modules
+Open PowerShell 7 and navigate to the repository folder:
 
 ```powershell
-Microsoft.Graph
-ExchangeOnlineManagement
+Set-Location "C:\Path\To\ALSO-Microsoft-Security-Purview"
 ```
 
-## Required Licensing
-
-```text
-Microsoft 365 Business Premium
-Microsoft 365 E3
-Microsoft 365 E5
-Microsoft Purview Suite
-```
-
-## Supported Workloads
-
-```text
-Exchange Online
-SharePoint Online
-OneDrive for Business
-Microsoft Teams
-Microsoft 365 Copilot
-Endpoint DLP
-```
-
----
-
-# 🔧 Deployment
-
-> [!IMPORTANT]
-> Always run the deployment first with -WhatIf before making changes to a production tenant.
-
-## Preview Deployment
+If script execution is blocked for the current PowerShell process:
 
 ```powershell
-Set-ExecutionPolicy `
-    -Scope Process `
-    -ExecutionPolicy Bypass `
-    -Force
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
 
+### Step 1: Validate with WhatIf
+
+Replace the example values with the tenant administrator UPN and SharePoint admin URL.
+
+```powershell
 .\Deploy-PurviewBestPractice.ps1 `
     -TenantAdminUpn "admin@contoso.com" `
+    -SharePointAdminUrl "https://contoso-admin.sharepoint.com" `
     -AutoInstallModules `
     -WhatIf
 ```
 
-## Production Deployment
+`-WhatIf` previews the operations without intentionally applying the deployment changes. Review the complete console output and confirm that no unexpected objects or settings are included.
+
+A successful validation should end with a deployment summary similar to the following:
+
+![Successful WhatIf validation](Images/WhatIf-Success.png)
+
+> [!IMPORTANT]
+> `OK` in a WhatIf summary means the corresponding stage completed its preview path. It does not mean that the configuration was deployed.
+
+### Step 2: Run the Deployment
+
+After reviewing the WhatIf output, run the same command without `-WhatIf`:
 
 ```powershell
 .\Deploy-PurviewBestPractice.ps1 `
     -TenantAdminUpn "admin@contoso.com" `
-    -AutoInstallDependencies
+    -SharePointAdminUrl "https://contoso-admin.sharepoint.com" `
+    -AutoInstallModules
 ```
 
----
+A successful deployment should end with a summary similar to the following:
 
-# ✅ Validation
+![Successful Purview deployment](Images/Deployment-Success.png)
 
-Verify that the following components are successfully deployed:
+In the example output, retention is shown as `Skipped` because `-ApplyRetention` was not used.
 
-- Sensitivity Labels
-- Label Policies
-- DLP Policies
-- Endpoint DLP Policies
-- AI Protection Policies
-- Exchange Online Policies
-- SharePoint Policies
-- OneDrive Policies
-- Teams Policies
+### Deploy with Retention
 
-## Verification Locations
+```powershell
+.\Deploy-PurviewBestPractice.ps1 `
+    -TenantAdminUpn "admin@contoso.com" `
+    -SharePointAdminUrl "https://contoso-admin.sharepoint.com" `
+    -AutoInstallModules `
+    -ApplyRetention
+```
+
+### Adopt Existing Objects
+
+Use this option only after reviewing the existing tenant configuration:
+
+```powershell
+.\Deploy-PurviewBestPractice.ps1 `
+    -TenantAdminUpn "admin@contoso.com" `
+    -SharePointAdminUrl "https://contoso-admin.sharepoint.com" `
+    -AutoInstallModules `
+    -AdoptExisting
+```
+
+### Deploy Only the Business Premium Scope
+
+```powershell
+.\Deploy-PurviewBestPractice.ps1 `
+    -TenantAdminUpn "admin@contoso.com" `
+    -SharePointAdminUrl "https://contoso-admin.sharepoint.com" `
+    -AutoInstallModules `
+    -BPOnly
+```
+
+## 🧩 Main Parameters
+
+| Parameter | Purpose |
+|---|---|
+| `-TenantAdminUpn` | Mandatory administrator UPN used for the deployment connection. |
+| `-SharePointAdminUrl` | SharePoint Online administration URL. |
+| `-DelegatedOrganization` | Specifies a delegated organization when applicable. |
+| `-ConfigPath` | Uses an alternative configuration file. |
+| `-AutoInstallModules` | Allows the connection module to install required PowerShell modules. |
+| `-WhatIf` | Previews supported changes before deployment. |
+| `-AdoptExisting` | Allows supported modules to adopt matching existing objects. |
+| `-SkipTenantSettings` | Skips tenant settings. |
+| `-SkipLabels` | Skips sensitivity labels and label publishing. |
+| `-SkipDLP` | Skips label-based and SIT-based DLP deployment. |
+| `-ApplyRetention` | Deploys the configured retention policy. |
+| `-SkipAIControls` | Skips AI governance controls. |
+| `-SkipContainerLabels` | Prevents container label settings from being applied. |
+| `-EnableLabelCoAuthoring` | Enables label co-authoring in the runtime configuration. |
+| `-EnablePremiumAudit` | Enables the optional Premium Audit configuration path. |
+| `-PremiumAuditMailbox` | Supplies mailboxes for the Premium Audit option. |
+| `-BPOnly` | Skips the AI governance deployment path and passes Business Premium-only scope to DLP deployment. |
+| `-NoLicenseAutoDetect` | Prevents the script from connecting to Microsoft Graph for automatic license detection. |
+| `-NonInteractive` | Passes non-interactive behavior to the connection module. |
+| `-ReportPath` | Sets a custom HTML report path. |
+| `-NoReport` | Disables HTML report generation. |
+
+## 📊 Deployment Summary
+
+At the end of the run, the script reports the status of:
 
 ```text
-Microsoft Purview Portal
-Microsoft Defender Portal
-Microsoft 365 Admin Center
+Deployment summary
+  Tenant settings        OK
+  Sensitivity labels     OK
+  Label DLP policies     OK
+  SIT DLP policies       OK
+  Retention              Skipped
+  AI governance          OK
 ```
 
----
+Possible values include:
 
-# 🖼️ Screenshots
+- `OK`: The stage completed without a terminating error.
+- `Skipped`: The stage was excluded by the selected parameters or was not explicitly enabled.
 
-## Sensitivity Labels
+Always review the complete console output and the generated HTML report. The summary alone does not replace tenant validation.
 
-[Screenshot Placeholder]
+## 📄 Deployment Report
 
-## DLP Policies
+Unless `-NoReport` is specified, the toolkit attempts to generate an HTML report with a timestamped name similar to:
 
-[Screenshot Placeholder]
+```text
+Deploy-PurviewBestPractice-Report-YYYYMMDD-HHMMSS.html
+```
 
-## Endpoint DLP
+A custom path can be supplied with `-ReportPath`:
 
-[Screenshot Placeholder]
+```powershell
+.\Deploy-PurviewBestPractice.ps1 `
+    -TenantAdminUpn "admin@contoso.com" `
+    -SharePointAdminUrl "https://contoso-admin.sharepoint.com" `
+    -ReportPath ".\Reports\Purview-Deployment.html"
+```
 
-## AI Protection Policies
+## 🔁 Re-running the Toolkit
 
-[Screenshot Placeholder]
+The scripts check for existing supported policies and rules before creating or updating them. Even so, always use `-WhatIf` before every rerun, especially after editing `PurviewConfig.psd1` or when the tenant already contains Purview configurations managed outside this toolkit.
 
----
+> [!WARNING]
+> Do not assume that every existing tenant object belongs to this toolkit. Review matching names, settings, assignments, and customer-owned policies before using `-AdoptExisting`.
 
-# 🐞 Issues
+## 🔍 Post-Deployment Validation
 
-Open an issue in this repository if you encounter deployment problems or discover bugs.
+After deployment, verify the created or updated configuration in the Microsoft Purview portal:
 
----
+- Tenant settings
+- Sensitivity labels and label order
+- Label publishing policy and assignments
+- Exchange, SharePoint, OneDrive, and Endpoint DLP policies
+- Sensitive information type DLP rules
+- DLP simulation status
+- Retention policy, if enabled
+- AI governance policy
+- Generated deployment report
 
-# 🤝 Contributors
+Allow Microsoft 365 services time to process policy changes before completing functional tests.
 
-Created and maintained by:
+## 🔐 Security Guidance
 
-- Oualid EL Bakkari
-- Vlad Johansen
-- Magnus Mikkelsen
+- Never store administrator passwords, secrets, certificates, or access tokens in the repository.
+- Do not upload customer-specific reports or tenant information to a public repository.
+- Use least-privileged administrative access whenever possible.
+- Review all configuration values before deployment.
+- Pilot tenant-wide controls before production rollout.
+- Keep DLP in simulation until alerts and possible false positives have been reviewed.
+- Confirm retention and deletion requirements with the responsible customer stakeholders.
 
-ALSO Microsoft Security Center of Competence
+## ⚠️ Disclaimer
 
----
+This toolkit provides a reusable baseline and must be reviewed before use. Every organization has different licensing, regulatory requirements, data classifications, user populations, and risk tolerances.
 
-# 📜 License
+The deploying organization remains responsible for validating the configuration, testing the user impact, obtaining the required approvals, and confirming that the deployed controls meet its legal and business requirements.
 
-Licensed under Apache License 2.0.
+## 👤 Author
+
+**Oualid EL Bakkari**  
+Microsoft Security Technical Presales  
+ALSO
