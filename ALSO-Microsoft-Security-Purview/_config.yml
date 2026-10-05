@@ -1,0 +1,108 @@
+title: ALSO Microsoft Purview Best Practice Tool
+
+description: >-
+  Microsoft Purview deployment framework and best practice baseline
+  including Sensitivity Labels, Label Policies, Data Loss Prevention,
+  Endpoint DLP and Microsoft 365 Copilot protection controls.
+
+url: "https://coc-ms.github.io"
+baseurl: "/ALSO-Microsoft-Security-Purview"
+
+# Build from the repository root so existing docs in Products/<Product>/docs/
+# remain the single source of truth. No duplication, no build script.
+# GitHub Pages must be configured to "Deploy from a branch" -> root.
+
+remote_theme: just-the-docs/just-the-docs@v0.10.0
+color_scheme: light
+
+# just-the-docs nav / search behaviour
+search_enabled: true
+search:
+  heading_level: 3
+  previews: 3
+  preview_words_before: 5
+  preview_words_after: 10
+heading_anchors: true
+back_to_top: true
+back_to_top_text: "Back to top"
+
+# Footer
+footer_content: >-
+  &copy; ALSO Microsoft Security CoC.
+  Microsoft Purview Best Practice Tool.
+  Provided AS IS with no warranty..
+
+aux_links:
+  "GitHub":
+    - "https://github.com/CoC-MS/ALSO-Microsoft-Security-Purview"
+
+# What Jekyll should turn into pages. Anything not in include/ and not in the
+# default Jekyll-tracked locations is ignored. Anything in exclude wins.
+include:
+  - Products
+exclude:
+  # Runtime PowerShell — never part of the docs site.
+  - "**/*.ps1"
+  - "**/*.psd1"
+  - "**/*.psm1"
+  # Per-run deployment reports (also gitignored, but defensive).
+  - "**/Deploy-*-Report-*.html"
+  - "**/Deploy-*-Report-*.json"
+  # Standalone HTML guides are published (embedded in their docs pages).
+  # Any .docx companion, if one is added later, should stay excluded (binary download).
+  # Code / data / sample directories — not docs.
+  - "Products/Purview/Scripts"
+  - "Products/Purview/Backup"
+  - "Products/Purview/Reports"
+  - "Products/Purview/Temp"
+  # Repo housekeeping.
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - node_modules
+  - .vscode
+  - Feedback
+  - Skills
+  - Design-Notes
+  - README.md          # Site landing page lives in index.md; root README is GitHub-only.
+
+# Apply layout + nav defaults to existing markdown files so we don't have to
+# touch most of them. Per-page front matter (title, nav_order, parent) is
+# added in-place to the files that need to appear in the sidebar.
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-relative-links
+  - jekyll-default-layout
+  - jekyll-titles-from-headings
+
+# Rewrite relative `*.md` links inside the existing docs to the rendered
+# HTML URLs at build time, so we don't have to edit any cross-references
+# inside the source markdown.
+relative_links:
+  enabled: true
+  collections: true
+titles_from_headings:
+  enabled: true
+  strip_title: false
+  collections: true
+
+# Markdown / kramdown — match GitHub's renderer as closely as possible.
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+# Don't try to publish drafts or future-dated posts.
+future: false
+show_drafts: false
