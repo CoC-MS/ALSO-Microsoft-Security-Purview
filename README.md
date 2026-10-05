@@ -36,9 +36,7 @@ The toolkit automates tenant settings, sensitivity labels, label publishing, Dat
 │   ├── Setup-AIGovernance.ps1
 │   ├── PurviewRunLog.ps1
 │   └── Write-PurviewHtmlReport.ps1
-├── Images/
-│   ├── WhatIf-Success.png
-│   └── Deployment-Success.png
+|
 └── README.md
 ```
 
@@ -151,6 +149,30 @@ The policy prevents Microsoft 365 Copilot experiences from processing content la
 > [!NOTE]
 > Microsoft 365 Copilot DLP enforcement requires appropriate per-user licensing. Policy changes can take time before enforcement begins.
 
+## 🔐 Required Administrator Roles
+
+To run the Microsoft Purview Best Practice deployment, the deployment account must have one of the following permission options:
+
+### Option 1: Global Administrator
+
+Assign the **Global Administrator** role to the deployment account.
+
+### Option 2: Least-Privilege Role Combination
+
+Instead of Global Administrator, assign all of the following roles:
+
+- **Compliance Administrator**
+- **SharePoint Administrator**
+- **Exchange Administrator**
+- **Cloud Application Administrator**
+- **Groups Administrator**
+
+> [!IMPORTANT]
+> If you use the least-privilege option, all roles listed above must be assigned to the same deployment account before running the script.
+
+> [!TIP]
+> If your organization uses Microsoft Entra Privileged Identity Management (PIM), activate all required roles before starting the `-WhatIf` validation or the production deployment.
+
 ## ✅ Before Deployment
 
 Complete the following checks before running the toolkit:
@@ -164,9 +186,11 @@ Complete the following checks before running the toolkit:
 7. Test in a pilot tenant before deploying to production.
 8. Run `-WhatIf` before the real deployment.
 
+
+
 ## 🚀 How to Run
 
-Open PowerShell 7 and navigate to the repository folder:
+Open PowerShell 7 as a Administrator and navigate to the repository folder:
 
 ```powershell
 Set-Location "C:\Path\To\ALSO-Microsoft-Security-Purview"
