@@ -23,7 +23,7 @@ The toolkit automates tenant settings, sensitivity labels, label publishing, Dat
 ## 📂 Repository Structure
 
 ```text
-/
+/Purview
 ├── Deploy-PurviewBestPractice.ps1
 ├── Config/
 │   └── PurviewConfig.psd1
@@ -36,6 +36,8 @@ The toolkit automates tenant settings, sensitivity labels, label publishing, Dat
 │   ├── Setup-AIGovernance.ps1
 │   ├── PurviewRunLog.ps1
 │   └── Write-PurviewHtmlReport.ps1
+├── AdHoc/
+|   ├── Enable-DefaultLabelForSPOLibrary.ps1
 |
 └── README.md
 ```
@@ -85,6 +87,13 @@ Very sensitive business data requiring the highest protection.
 ### 3. Label Publishing Policy
 
 **Policy name:** `BP-ALSO - Default Label Policy`
+| Required License| Tag |
+|---|---|
+| BP |	Microsoft 365 Business Premium |
+| E3 |  Microsoft 365 E3 |
+| E5 |  Microsoft 365 E5 |
+| PS |  Microsoft Purview Suite |
+
 
 The policy publishes the configured baseline labels to users and includes:
 
