@@ -209,7 +209,6 @@ Replace the example values with the tenant administrator UPN and SharePoint admi
 ```powershell
 .\Deploy-PurviewBestPractice.ps1 `
     -TenantAdminUpn "admin@contoso.com" `
-    -SharePointAdminUrl "https://contoso-admin.sharepoint.com" `
     -AutoInstallModules `
     -WhatIf
 ```
@@ -230,7 +229,6 @@ After reviewing the WhatIf output, run the same command without `-WhatIf`:
 ```powershell
 .\Deploy-PurviewBestPractice.ps1 `
     -TenantAdminUpn "admin@contoso.com" `
-    -SharePointAdminUrl "https://contoso-admin.sharepoint.com" `
     -AutoInstallModules
 ```
 
