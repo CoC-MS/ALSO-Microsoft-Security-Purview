@@ -268,7 +268,6 @@ Review the complete console output and confirm that no unexpected objects or set
 
 A successful validation should end with a deployment summary similar to the following:
 
-![Successful WhatIf validation](Images/WhatIf-Success.png)
 
 ### Step 2: Run the Deployment
 
@@ -282,35 +281,9 @@ After reviewing the WhatIf output, run the same command without `-WhatIf`:
 
 A successful deployment should end with a summary similar to the following:
 
-![Successful Purview deployment](Images/Deployment-Success.png)
 
 In the example output, retention is shown as `Skipped` because `-ApplyRetention` was not used.
 
-## Main Parameters
-
-| Parameter | Purpose |
-|---|---|
-| `-TenantAdminUpn` | Mandatory administrator UPN used for the deployment connection. |
-| `-SharePointAdminUrl` | SharePoint Online administration URL. |
-| `-DelegatedOrganization` | Specifies a delegated organization when applicable. |
-| `-ConfigPath` | Uses an alternative configuration file. |
-| `-AutoInstallModules` | Allows the connection module to install required PowerShell modules. |
-| `-WhatIf` | Previews supported changes before deployment. |
-| `-AdoptExisting` | Allows supported modules to adopt matching existing objects. |
-| `-SkipTenantSettings` | Skips tenant settings. |
-| `-SkipLabels` | Skips sensitivity labels and label publishing. |
-| `-SkipDLP` | Skips label-based and SIT-based DLP deployment. |
-| `-ApplyRetention` | Deploys the configured retention policy. |
-| `-SkipAIControls` | Skips AI governance controls. |
-| `-SkipContainerLabels` | Prevents container label settings from being applied. |
-| `-EnableLabelCoAuthoring` | Enables label co-authoring in the runtime configuration. |
-| `-EnablePremiumAudit` | Enables the optional Premium Audit configuration path. |
-| `-PremiumAuditMailbox` | Supplies mailboxes for the Premium Audit option. |
-| `-BPOnly` | Skips the AI governance deployment path and passes Business Premium-only scope to DLP deployment. |
-| `-NoLicenseAutoDetect` | Prevents the script from connecting to Microsoft Graph for automatic license detection. |
-| `-NonInteractive` | Passes non-interactive behavior to the connection module. |
-| `-ReportPath` | Sets a custom HTML report path. |
-| `-NoReport` | Disables HTML report generation. |
 
 ## Deployment Summary
 
