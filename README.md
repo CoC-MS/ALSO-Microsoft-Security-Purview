@@ -242,7 +242,7 @@ Complete the following checks before running the toolkit:
 Open PowerShell 7 as an administrator and navigate to the repository folder:
 
 ```powershell
-Set-Location "C:\Path\To\ALSO-Microsoft-Security-Purview"
+Set-Location "C:\Path\To\ALSO-Microsoft-Security-Purview\Purview"
 ```
 
 If script execution is blocked for the current PowerShell process:
