@@ -7,7 +7,25 @@ The toolkit automates tenant settings, sensitivity labels, label publishing, Dat
 > [!IMPORTANT]
 > Always run the toolkit with `-WhatIf` first. Review every proposed change before running a real deployment in a production tenant.
 
-## 📋 Overview
+## 📖 Documentation and Resources
+
+| Resource | Description |
+|---|---|
+| 📋 [Deployment coverage](#deployment-coverage) | Review the workloads and controls included in the toolkit. |
+| ⚙️ [Baseline configuration](#baseline-configuration) | Review tenant settings, labels, DLP policies, retention, and AI governance. |
+| 🔐 [Required administrator roles](#required-administrator-roles) | Review the deployment account permission options. |
+| ✅ [Before deployment](#before-deployment) | Check PowerShell, configuration, permissions, and pilot preparation. |
+| 📂 [Repository structure](#repository-structure) | Find the main script, configuration file, and deployment modules. |
+| 🚀 [How to run](#how-to-run) | Validate with WhatIf and run the reviewed deployment. |
+| 🧩 [Main parameters](#main-parameters) | Review deployment options and workload switches. |
+| 📊 [Deployment summary](#deployment-summary) | Understand the stage status shown at the end of a run. |
+| 📄 [Deployment report](#deployment-report) | Review HTML reporting and custom report paths. |
+| 🔁 [Re-running the toolkit](#re-running-the-toolkit) | Review existing objects before repeating a deployment. |
+| 🔍 [Post-deployment validation](#post-deployment-validation) | Validate the configuration in the Microsoft Purview portal. |
+| 🔐 [Security guidance](#security-guidance) | Review credential handling, customer data, and deployment precautions. |
+| ⚠️ [Disclaimer](#disclaimer) | Review deployment responsibilities and the usage notice. |
+
+## Deployment Coverage
 
 | Resource | Description |
 |---|---|
@@ -20,7 +38,18 @@ The toolkit automates tenant settings, sensitivity labels, label publishing, Dat
 | 🤖 AI governance | Deploys the configured Microsoft 365 Copilot DLP control. |
 | 📄 Reporting | Generates an HTML deployment report unless reporting is disabled. |
 
-## 📂 Repository Structure
+## 🚀 Getting Started
+
+1. Review the [Baseline configuration](#baseline-configuration) and `Config\PurviewConfig.psd1`.
+2. Complete the [Before deployment](#before-deployment) checks and review the [Required administrator roles](#required-administrator-roles).
+3. Follow [How to run](#how-to-run), starting with `-WhatIf`.
+4. Review the proposed changes before running the real deployment.
+5. Complete [Post-deployment validation](#post-deployment-validation) and review the generated report.
+
+> [!WARNING]
+> Keep DLP in simulation until alerts and possible false positives have been reviewed. Retention is optional and must not be enabled without confirming the customer's legal, regulatory, and business requirements.
+
+## Repository Structure
 
 ```text
 /Purview
@@ -37,15 +66,14 @@ The toolkit automates tenant settings, sensitivity labels, label publishing, Dat
 │   ├── PurviewRunLog.ps1
 │   └── Write-PurviewHtmlReport.ps1
 ├── AdHoc/
-|   ├── Enable-DefaultLabelForSPOLibrary.ps1
-|
+│   └── Enable-DefaultLabelForSPOLibrary.ps1
 └── README.md
 ```
 
 > [!NOTE]
 > The main script expects the configuration file at `Config\PurviewConfig.psd1` and the required deployment modules inside the `Modules` folder.
 
-## ⚙️ What the Toolkit Deploys
+## Baseline Configuration
 
 ### 1. Tenant Settings
 
@@ -67,33 +95,39 @@ Business data approved for public consumption. No encryption or content marking 
 
 Business data not intended for public consumption but shareable externally when appropriate.
 
-- **Anyone (unrestricted):** General business data that may be shared externally.
-- **All Employees (unrestricted):** General business data intended for employees.
+| Sublabel | Description |
+|---|---|
+| **Anyone (unrestricted)** | General business data that may be shared externally. |
+| **All Employees (unrestricted)** | General business data intended for employees. |
 
 #### Confidential
 
 Sensitive business data that could cause damage if shared with unauthorized people.
 
-- **All Employees:** Internal confidential data. A footer can be applied when content marking is enabled.
-- **Trusted People:** Protected content for trusted internal or external recipients. User-defined encryption is used.
+| Sublabel | Description |
+|---|---|
+| **All Employees** | Internal confidential data. A footer can be applied when content marking is enabled. |
+| **Trusted People** | Protected content for trusted internal or external recipients. User-defined encryption is used. |
 
 #### Highly Confidential
 
 Very sensitive business data requiring the highest protection.
 
-- **All Employees:** Tenant-scoped template encryption is applied.
-- **Specific People:** Explicitly selected recipients receive access. Do Not Forward behavior is configured for Outlook.
+| Sublabel | Description |
+|---|---|
+| **All Employees** | Tenant-scoped template encryption is applied. |
+| **Specific People** | Explicitly selected recipients receive access. Do Not Forward behavior is configured for Outlook. |
 
 ### 3. Label Publishing Policy
 
 **Policy name:** `BP-ALSO - Default Label Policy`
-| Required License| Tag |
-|---|---|
-| BP |	Microsoft 365 Business Premium |
-| E3 |  Microsoft 365 E3 |
-| E5 |  Microsoft 365 E5 |
-| PS |  Microsoft Purview Suite |
 
+| Tag | Required License |
+|---|---|
+| BP | Microsoft 365 Business Premium |
+| E3 | Microsoft 365 E3 |
+| E5 | Microsoft 365 E5 |
+| PS | Microsoft Purview Suite |
 
 The policy publishes the configured baseline labels to users and includes:
 
@@ -135,7 +169,13 @@ The toolkit includes Exchange DLP policies for external messages containing:
 | `BP-ALSO - DLP - Passport Numbers DACH-EU (EXO)` | Selected EU, German, and Swiss passport numbers |
 | `BP-ALSO - DLP - Tax ID and VAT DACH (EXO)` | Selected German, Austrian, and Swiss tax or VAT numbers |
 
-The configuration uses a minimum count of `1`, a maximum count of `500`, and a minimum confidence level of `85`.
+The configuration uses:
+
+| Setting | Value |
+|---|---|
+| Minimum count | `1` |
+| Maximum count | `500` |
+| Minimum confidence level | `85` |
 
 > [!NOTE]
 > The baseline starts DLP policies in simulation mode because `DlpStartInSimulation` is set to `$true`. Review simulation results before moving policies to enforcement.
@@ -144,7 +184,9 @@ The configuration uses a minimum count of `1`, a maximum count of `500`, and a m
 
 **Policy name:** `BP-ALSO - Exchange 7-year retention`
 
-The configured policy retains Exchange content for 2,555 days from creation and then deletes it. Retention is not deployed by default and requires `-ApplyRetention`.
+The configured policy retains Exchange content for 2,555 days from creation and then deletes it.
+
+Retention is not deployed by default and requires `-ApplyRetention`.
 
 > [!WARNING]
 > Review the retention duration and deletion behavior with the customer before deployment. Do not enable retention without confirming legal, regulatory, and business requirements.
@@ -158,9 +200,9 @@ The policy prevents Microsoft 365 Copilot experiences from processing content la
 > [!NOTE]
 > Microsoft 365 Copilot DLP enforcement requires appropriate per-user licensing. Policy changes can take time before enforcement begins.
 
-## 🔐 Required Administrator Roles
+## Required Administrator Roles
 
-To run the Microsoft Purview Best Practice deployment, the deployment account must have one of the following permission options:
+To run the Microsoft Purview Best Practice deployment, the deployment account must have one of the following permission options.
 
 ### Option 1: Global Administrator
 
@@ -182,7 +224,7 @@ Instead of Global Administrator, assign all of the following roles:
 > [!TIP]
 > If your organization uses Microsoft Entra Privileged Identity Management (PIM), activate all required roles before starting the `-WhatIf` validation or the production deployment.
 
-## ✅ Before Deployment
+## Before Deployment
 
 Complete the following checks before running the toolkit:
 
@@ -195,11 +237,9 @@ Complete the following checks before running the toolkit:
 7. Test in a pilot tenant before deploying to production.
 8. Run `-WhatIf` before the real deployment.
 
+## How to Run
 
-
-## 🚀 How to Run
-
-Open PowerShell 7 as a Administrator and navigate to the repository folder:
+Open PowerShell 7 as an administrator and navigate to the repository folder:
 
 ```powershell
 Set-Location "C:\Path\To\ALSO-Microsoft-Security-Purview"
@@ -213,7 +253,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 ### Step 1: Validate with WhatIf
 
-Replace the example values with the tenant administrator UPN and SharePoint admin URL.
+Replace the example administrator UPN with the tenant administrator UPN. When supplying `-SharePointAdminUrl`, use the tenant's SharePoint admin URL.
 
 ```powershell
 .\Deploy-PurviewBestPractice.ps1 `
@@ -222,14 +262,13 @@ Replace the example values with the tenant administrator UPN and SharePoint admi
     -WhatIf
 ```
 
-`-WhatIf` previews the operations without intentionally applying the deployment changes. Review the complete console output and confirm that no unexpected objects or settings are included.
+`-WhatIf` previews the operations without intentionally applying the deployment changes.
+
+Review the complete console output and confirm that no unexpected objects or settings are included.
 
 A successful validation should end with a deployment summary similar to the following:
 
-![Successful WhatIf validation](Images/WhatIf-Success.png)## 🔐 Required Administrator Roles
-
-To run the Microsoft Purview Best Practice deployment, the deployment account must have one of the following permission options:
-
+![Successful WhatIf validation](Images/WhatIf-Success.png)
 
 ### Step 2: Run the Deployment
 
@@ -247,9 +286,7 @@ A successful deployment should end with a summary similar to the following:
 
 In the example output, retention is shown as `Skipped` because `-ApplyRetention` was not used.
 
-
-
-## 🧩 Main Parameters
+## Main Parameters
 
 | Parameter | Purpose |
 |---|---|
@@ -275,7 +312,7 @@ In the example output, retention is shown as `Skipped` because `-ApplyRetention`
 | `-ReportPath` | Sets a custom HTML report path. |
 | `-NoReport` | Disables HTML report generation. |
 
-## 📊 Deployment Summary
+## Deployment Summary
 
 At the end of the run, the script reports the status of:
 
@@ -291,12 +328,15 @@ Deployment summary
 
 Possible values include:
 
-- `OK`: The stage completed without a terminating error.
-- `Skipped`: The stage was excluded by the selected parameters or was not explicitly enabled.
+| Status | Meaning |
+|---|---|
+| `OK` | The stage completed without a terminating error. |
+| `Skipped` | The stage was excluded by the selected parameters or was not explicitly enabled. |
 
-Always review the complete console output and the generated HTML report. The summary alone does not replace tenant validation.
+> [!IMPORTANT]
+> Always review the complete console output and the generated HTML report. The summary alone does not replace tenant validation.
 
-## 📄 Deployment Report
+## Deployment Report
 
 Unless `-NoReport` is specified, the toolkit attempts to generate an HTML report with a timestamped name similar to:
 
@@ -313,14 +353,16 @@ A custom path can be supplied with `-ReportPath`:
     -ReportPath ".\Reports\Purview-Deployment.html"
 ```
 
-## 🔁 Re-running the Toolkit
+## Re-running the Toolkit
 
-The scripts check for existing supported policies and rules before creating or updating them. Even so, always use `-WhatIf` before every rerun, especially after editing `PurviewConfig.psd1` or when the tenant already contains Purview configurations managed outside this toolkit.
+The scripts check for existing supported policies and rules before creating or updating them.
+
+Even so, always use `-WhatIf` before every rerun, especially after editing `PurviewConfig.psd1` or when the tenant already contains Purview configurations managed outside this toolkit.
 
 > [!WARNING]
 > Do not assume that every existing tenant object belongs to this toolkit. Review matching names, settings, assignments, and customer-owned policies before using `-AdoptExisting`.
 
-## 🔍 Post-Deployment Validation
+## Post-Deployment Validation
 
 After deployment, verify the created or updated configuration in the Microsoft Purview portal:
 
@@ -336,7 +378,7 @@ After deployment, verify the created or updated configuration in the Microsoft P
 
 Allow Microsoft 365 services time to process policy changes before completing functional tests.
 
-## 🔐 Security Guidance
+## Security Guidance
 
 - Never store administrator passwords, secrets, certificates, or access tokens in the repository.
 - Do not upload customer-specific reports or tenant information to a public repository.
@@ -346,9 +388,11 @@ Allow Microsoft 365 services time to process policy changes before completing fu
 - Keep DLP in simulation until alerts and possible false positives have been reviewed.
 - Confirm retention and deletion requirements with the responsible customer stakeholders.
 
-## ⚠️ Disclaimer
+## Disclaimer
 
-This toolkit provides a reusable baseline and must be reviewed before use. Every organization has different licensing, regulatory requirements, data classifications, user populations, and risk tolerances.
+This toolkit provides a reusable baseline and must be reviewed before use.
+
+Every organization has different licensing, regulatory requirements, data classifications, user populations, and risk tolerances.
 
 The deploying organization remains responsible for validating the configuration, testing the user impact, obtaining the required approvals, and confirming that the deployed controls meet its legal and business requirements.
 
