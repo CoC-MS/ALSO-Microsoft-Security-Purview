@@ -19,8 +19,6 @@ Choose one standalone package.
 | Microsoft 365 E5 | ✅ Full support | All policy types 
 | Microsoft 365 E3 + Purview Suite | ✅ Full support | All policy types 
 | Business Premium + Purview Suite | ✅ Full support | All policy types 
-| Microsoft 365 F3 + Purview Suite | ✅ Full support | All policy types 
-
 
 
 
