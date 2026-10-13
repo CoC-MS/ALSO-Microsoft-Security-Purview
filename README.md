@@ -7,6 +7,39 @@ The toolkit automates tenant settings, sensitivity labels, label publishing, Dat
 > [!IMPORTANT]
 > Always run the toolkit with `-WhatIf` first. Review every proposed change before running a real deployment in a production tenant.
 
+## Purview Licensing Guide
+
+Choose one standalone package. 
+
+### ✅  (Full Experience)
+
+Package: [`ALSO_MACOS_E5`](ALSO_MACOS_E5)
+
+| License | Supported |
+|----------|----------|
+| Microsoft 365 E7 | ✅ Full support | All policy types 
+| Microsoft 365 E5 | ✅ Full support | All policy types 
+| Microsoft 365 E3 + Purview Suite | ✅ Full support | All policy types 
+| Business Premium + Purview Suite | ✅ Full support | All policy types 
+| Microsoft 365 F3 + Purview Suite | ✅ Full support | All policy types 
+| Microsoft 365 F1 + Purview Suite | ✅ Full support | All policy types 
+
+### ⚠️ BP Folder (Limited Experience)
+
+Package: [`ALSO_MACOS_BP`](ALSO_MACOS_BP)
+
+The **BP folder** is designed for organizations using Microsoft 365 Business Premium and other licenses with partial feature compatibility.
+
+| License | Supported Features |
+|----------|----------|
+| Microsoft 365 Business Premium | ⚠️ Supported with limitations (without full Defender for Cloud Apps experience) |
+| Microsoft 365 E3 | ⚠️ Supported with limitations (without full Defender for Cloud Apps experience) |
+| Microsoft 365 F3 | ⚠️ Supported with limitations (without full Defender for Cloud Apps experience) |
+| Microsoft 365 F1 | ⚠️ Intune settings only. Defender settings are not supported. |
+
+
+> **Important:** Microsoft 365 F1 supports deployment of Intune configuration settings only. Microsoft Defender security policy settings included in this repository are not supported with F1 licensing.
+
 ## 📖 Documentation and Resources
 
 | Resource | Description |
