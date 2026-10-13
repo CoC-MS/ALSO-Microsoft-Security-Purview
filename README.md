@@ -11,7 +11,7 @@ The toolkit automates tenant settings, sensitivity labels, label publishing, Dat
 
 Choose one standalone package. 
 
-### ✅  (Full Experience)
+### ✅  (Full Experience) E5 tag
 
 | License | Supported |
 |----------|----------|
@@ -22,7 +22,7 @@ Choose one standalone package.
 | Microsoft 365 F3 + Purview Suite | ✅ Full support | All policy types 
 | Microsoft 365 F1 + Purview Suite | ✅ Full support | All policy types 
 
-### ⚠️ (Limited Experience)
+### ⚠️ (Limited Experience) BP tag
 
 Designed for organizations using Microsoft 365 Business Premium and other licenses with partial feature compatibility.
 
