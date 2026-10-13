@@ -385,23 +385,6 @@ After deployment, verify the created or updated configuration in the Microsoft P
 
 Allow Microsoft 365 services time to process policy changes before completing functional tests.
 
-## Security Guidance
-
-- Never store administrator passwords, secrets, certificates, or access tokens in the repository.
-- Do not upload customer-specific reports or tenant information to a public repository.
-- Use least-privileged administrative access whenever possible.
-- Review all configuration values before deployment.
-- Pilot tenant-wide controls before production rollout.
-- Keep DLP in simulation until alerts and possible false positives have been reviewed.
-- Confirm retention and deletion requirements with the responsible customer stakeholders.
-
-## Disclaimer
-
-This toolkit provides a reusable baseline and must be reviewed before use.
-
-Every organization has different licensing, regulatory requirements, data classifications, user populations, and risk tolerances.
-
-The deploying organization remains responsible for validating the configuration, testing the user impact, obtaining the required approvals, and confirming that the deployed controls meet its legal and business requirements.
 
 ## 👤 Author
 
