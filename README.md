@@ -22,6 +22,8 @@ Choose one standalone package.
 | Microsoft 365 F3 + Purview Suite | ✅ Full support | All policy types 
 | Microsoft 365 F1 + Purview Suite | ✅ Full support | All policy types 
 
+> **Important:** Defender Suite add-on are needed for full e-DLP experience for Microsoft 365 F1 and F3 users
+
 ### ⚠️ (Limited Experience) BP tag
 
 Designed for organizations using Microsoft 365 Business Premium and other licenses with partial feature compatibility.
