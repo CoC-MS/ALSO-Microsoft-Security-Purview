@@ -34,9 +34,10 @@ Designed for organizations using Microsoft 365 Business Premium and other licens
 | Microsoft 365 E3 | ⚠️ Supported with limitations (without full DLP experience and auto-labelling) |
 | Microsoft 365 F3 | ⚠️ Supported with limitations (without full DLP experience and auto-labelling) |
 | Microsoft 365 F1 + Purview Suite | ⚠️ Supported with limitations (except e-DLP policies) |
+| Microsoft 365 F3 + Purview Suite | ⚠️ Supported with limitations (except e-DLP policies) |
 | Microsoft 365 F1 | ⚠️ Sensitivity labels only. |
 
-> **Important:** Defender Suite add-on are needed for full e-DLP experience for Microsoft 365 F1 and F3 users
+> **Important:** Defender Suite add-on are needed for full e-DLP experience for Microsoft 365 F1 and F3 users with Purview Suite.
 
 
 > **Important:** Microsoft 365 F1 doesn't support Sensitivite information types (SIT's), auto retention and labelling and DLP. Only sensitivity labels.
