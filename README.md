@@ -24,9 +24,7 @@ Choose one standalone package.
 
 ### ⚠️ (Limited Experience)
 
-Package: [`ALSO_MACOS_BP`](ALSO_MACOS_BP)
-
-The **BP folder** is designed for organizations using Microsoft 365 Business Premium and other licenses with partial feature compatibility.
+Designed for organizations using Microsoft 365 Business Premium and other licenses with partial feature compatibility.
 
 | License | Supported Features |
 |----------|----------|
