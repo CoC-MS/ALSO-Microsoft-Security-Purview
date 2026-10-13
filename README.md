@@ -57,7 +57,7 @@ Designed for organizations using Microsoft 365 Business Premium and other licens
 | 🔁 [Re-running the toolkit](#re-running-the-toolkit) | Review existing objects before repeating a deployment. |
 | 🔍 [Post-deployment validation](#post-deployment-validation) | Validate the configuration in the Microsoft Purview portal. |
 | 🐛 [Reporting issues](ISSUE_TEMPLATE/reporting-issues.md) | Report problems without disclosing tenant information. |
-| 🔐 [Security guidance](#security-guidance) | Review credential handling, customer data, and deployment precautions. |
+| 🔐 [Security guidance](SECURITY.md) | Review credential handling, customer data, and deployment precautions. |
 | ⚠️ [Disclaimer](#disclaimer) | Review deployment responsibilities and the usage notice. |
 
 ## Deployment Coverage
