@@ -13,8 +13,6 @@ Choose one standalone package.
 
 ### ✅  (Full Experience)
 
-Package: [`ALSO_MACOS_E5`](ALSO_MACOS_E5)
-
 | License | Supported |
 |----------|----------|
 | Microsoft 365 E7 | ✅ Full support | All policy types 
@@ -24,7 +22,7 @@ Package: [`ALSO_MACOS_E5`](ALSO_MACOS_E5)
 | Microsoft 365 F3 + Purview Suite | ✅ Full support | All policy types 
 | Microsoft 365 F1 + Purview Suite | ✅ Full support | All policy types 
 
-### ⚠️ BP Folder (Limited Experience)
+### ⚠️ (Limited Experience)
 
 Package: [`ALSO_MACOS_BP`](ALSO_MACOS_BP)
 
@@ -32,13 +30,13 @@ The **BP folder** is designed for organizations using Microsoft 365 Business Pre
 
 | License | Supported Features |
 |----------|----------|
-| Microsoft 365 Business Premium | ⚠️ Supported with limitations (without full Defender for Cloud Apps experience) |
-| Microsoft 365 E3 | ⚠️ Supported with limitations (without full Defender for Cloud Apps experience) |
-| Microsoft 365 F3 | ⚠️ Supported with limitations (without full Defender for Cloud Apps experience) |
-| Microsoft 365 F1 | ⚠️ Intune settings only. Defender settings are not supported. |
+| Microsoft 365 Business Premium | ⚠️ Supported with limitations (without full DLP experience and auto-labelling) |
+| Microsoft 365 E3 | ⚠️ Supported with limitations (without full DLP experience and auto-labelling) |
+| Microsoft 365 F3 | ⚠️ Supported with limitations (without full DLP experience and auto-labelling) |
+| Microsoft 365 F1 | ⚠️ Sensitivity labels only. |
 
 
-> **Important:** Microsoft 365 F1 supports deployment of Intune configuration settings only. Microsoft Defender security policy settings included in this repository are not supported with F1 licensing.
+> **Important:** Microsoft 365 F1 supports deploymen
 
 ## 📖 Documentation and Resources
 
