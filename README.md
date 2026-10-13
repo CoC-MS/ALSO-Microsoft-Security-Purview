@@ -36,7 +36,7 @@ The **BP folder** is designed for organizations using Microsoft 365 Business Pre
 | Microsoft 365 F1 | ⚠️ Sensitivity labels only. |
 
 
-> **Important:** Microsoft 365 F1 supports deploymen
+> **Important:** Microsoft 365 F1 doesn't support Sensitivite information types (SIT's), auto retention and labelling and DLP. Only sensitivity labels.  
 
 ## 📖 Documentation and Resources
 
