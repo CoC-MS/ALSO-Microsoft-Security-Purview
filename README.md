@@ -20,9 +20,9 @@ Choose one standalone package.
 | Microsoft 365 E3 + Purview Suite | ✅ Full support | All policy types 
 | Business Premium + Purview Suite | ✅ Full support | All policy types 
 | Microsoft 365 F3 + Purview Suite | ✅ Full support | All policy types 
-| Microsoft 365 F1 + Purview Suite | ✅ Full support | All policy types 
 
-> **Important:** Defender Suite add-on are needed for full e-DLP experience for Microsoft 365 F1 and F3 users
+
+
 
 ### ⚠️ (Limited Experience) BP tag
 
@@ -34,9 +34,11 @@ Designed for organizations using Microsoft 365 Business Premium and other licens
 | Microsoft 365 E3 | ⚠️ Supported with limitations (without full DLP experience and auto-labelling) |
 | Microsoft 365 F3 | ⚠️ Supported with limitations (without full DLP experience and auto-labelling) |
 | Microsoft 365 F1 | ⚠️ Sensitivity labels only. |
+| Microsoft 365 F1 + Purview Suite | ⚠️ All except e-DLP policies
 
+> **Important:** Microsoft 365 F1 doesn't support Sensitivite information types (SIT's), auto retention and labelling and DLP. Only sensitivity labels.
+> **Important:** Defender Suite add-on are needed for full e-DLP experience for Microsoft 365 F1 and F3 users
 
-> **Important:** Microsoft 365 F1 doesn't support Sensitivite information types (SIT's), auto retention and labelling and DLP. Only sensitivity labels.  
 
 ## 📖 Documentation and Resources
 
