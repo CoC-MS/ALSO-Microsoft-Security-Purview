@@ -387,8 +387,3 @@ After deployment, verify the created or updated configuration in the Microsoft P
 Allow Microsoft 365 services time to process policy changes before completing functional tests.
 
 
-## 👤 Author
-
-**Oualid EL Bakkari**  
-Microsoft Security Technical Presales  
-ALSO
