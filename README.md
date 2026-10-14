@@ -88,7 +88,12 @@ Designed for organizations using Microsoft 365 Business Premium and other licens
 
 ```text
 /Purview
-├── Deploy-PurviewBestPractice.ps1
+|.github/
+└── ISSUE_TEMPLATE/
+    ├── bug_report.yml
+    ├── config.yml
+    ├── documentation_or_licensing_correction.yml
+    └── feature_or_policy_request.yml
 ├── Config/
 │   └── PurviewConfig.psd1
 ├── Modules/
@@ -102,6 +107,8 @@ Designed for organizations using Microsoft 365 Business Premium and other licens
 │   └── Write-PurviewHtmlReport.ps1
 ├── AdHoc/
 │   └── Enable-DefaultLabelForSPOLibrary.ps1
+└── Deploy-PurviewBestPractice.ps1
+└── reporting-issues.md
 └── README.md
 ```
 
