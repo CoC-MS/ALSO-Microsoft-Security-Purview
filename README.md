@@ -17,6 +17,7 @@ The toolkit automates tenant settings, sensitivity labels, label publishing, Dat
 
 ### Quick navigation
 
+
 | Section | What you will find |
 |---|---|
 | [Getting started](#-getting-started) | Preparation, configuration review, and deployment guidance. |
