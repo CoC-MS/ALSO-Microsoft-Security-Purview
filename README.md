@@ -7,6 +7,46 @@ The toolkit automates tenant settings, sensitivity labels, label publishing, Dat
 > [!IMPORTANT]
 > Always run the toolkit with `-WhatIf` first. Review every proposed change before running a real deployment in a production tenant.
 
+---
+
+<a id="getting-started"></a>
+## 🚀 Getting Started
+
+1. Complete the [Before deployment](#before-deployment) checks and review the [Required administrator roles](#required-administrator-roles). Review the [Purview Licensing Guide](#purview-licensing-guide).
+2. [Download the repository ZIP](https://github.com/CoC-MS/ALSO-Microsoft-Security-Purview/archive/refs/heads/main.zip) and extract the complete repository. Keep the original folder structure unchanged.
+3. Review the [Baseline configuration](#baseline-configuration) and `Config\PurviewConfig.psd1`. Follow [How to run](#how-to-run), starting with `-WhatIf`. Review the proposed changes before running the real deployment.
+4. Test in a pilot tenant before deploying to production. Complete [Post-deployment validation](#post-deployment-validation) and review the generated report. Review policy assignments and user impact, then expand in stages.
+
+For controlled rollouts, follow the [Security guidance](SECURITY.md#implementing-partner-responsibilities): plan an appropriate staged rollout and obtain the required customer approvals. This toolkit deploys Purview configuration through PowerShell, not Intune deployment plans; review tenant-wide settings and policy scopes before running a real deployment.
+
+> [!WARNING]
+> Keep DLP in simulation until alerts and possible false positives have been reviewed. Retention is optional and must not be enabled without confirming the customer's legal, regulatory, and business requirements.
+
+**Need help or have feedback?** See [Reporting issues](reporting-issues.md). Report problems without disclosing tenant information.
+
+> [!WARNING]
+> Public issues are visible to everyone. Do not attach tenant exports, credentials, tokens, certificates or private keys, customer details, tenant/user/device IDs, group memberships, assignments, or unredacted logs and screenshots. Provide a minimal redacted example instead.
+
+### Quick navigation
+
+| Section | What you will find |
+| --- | --- |
+| [Getting started](#getting-started) | Prerequisites, download, configuration review, and staged rollout. |
+| [Purview Licensing Guide](#purview-licensing-guide) | License compatibility and limitations. |
+| 📋 [Deployment coverage](#deployment-coverage) | Review the workloads and controls included in the toolkit. |
+| ⚙️ [Baseline configuration](#baseline-configuration) | Review tenant settings, labels, DLP policies, retention, and AI governance. |
+| 🔐 [Required administrator roles](#required-administrator-roles) | Review the deployment account permission options. |
+| ✅ [Before deployment](#before-deployment) | Check PowerShell, configuration, permissions, and pilot preparation. |
+| 📂 [Repository structure](#repository-structure) | Find the main script, configuration file, and deployment modules. |
+| 🚀 [How to run](#how-to-run) | Validate with WhatIf and run the reviewed deployment. |
+| 📊 [Deployment summary](#deployment-summary) | Understand the stage status shown at the end of a run. |
+| 📄 [Deployment report](#deployment-report) | Review HTML reporting and custom report paths. |
+| 🔁 [Re-running the toolkit](#re-running-the-toolkit) | Review existing objects before repeating a deployment. |
+| 🔍 [Post-deployment validation](#post-deployment-validation) | Validate the configuration in the Microsoft Purview portal. |
+| [Documentation](#documentation) | Links to supporting guides and the repository license. |
+
+---
+
 ## Purview Licensing Guide
 
 **Disclaimer:** Licensing prerequisites and feature availability listed on this page may be incorrect, incomplete, or outdated. We strongly recommend verifying all licensing information against the latest official Microsoft licensing documentation before making any purchasing or deployment decisions.
@@ -15,12 +55,12 @@ Choose one standalone package.
 
 ### ✅  (Full Experience) E5 tag
 
-| License | Supported |
-|----------|----------|
-| Microsoft 365 E7 | ✅ Full support | All policy types 
-| Microsoft 365 E5 | ✅ Full support | All policy types 
-| Microsoft 365 E3 + Purview Suite | ✅ Full support | All policy types 
-| Business Premium + Purview Suite | ✅ Full support | All policy types 
+| License | Supported | Scope |
+| --- | --- | --- |
+| Microsoft 365 E7 | ✅ Full support | All policy types |
+| Microsoft 365 E5 | ✅ Full support | All policy types |
+| Microsoft 365 E3 + Purview Suite | ✅ Full support | All policy types |
+| Business Premium + Purview Suite | ✅ Full support | All policy types |
 
 
 
@@ -29,7 +69,7 @@ Choose one standalone package.
 Designed for organizations using Microsoft 365 Business Premium and other licenses with partial feature compatibility.
 
 | License | Supported Features |
-|----------|----------|
+| --- | --- |
 | Microsoft 365 Business Premium | ⚠️ Supported with limitations (without full DLP experience and auto-labelling) |
 | Microsoft 365 E3 | ⚠️ Supported with limitations (without full DLP experience and auto-labelling) |
 | Microsoft 365 F3 | ⚠️ Supported with limitations (without full DLP experience and auto-labelling) |
@@ -43,29 +83,10 @@ Designed for organizations using Microsoft 365 Business Premium and other licens
 > **Important:** Microsoft 365 F1 doesn't support Sensitivite information types (SIT's), auto retention and labelling and DLP. Only sensitivity labels.
 
 
-## 📖 Documentation and Resources
-
-| Resource | Description |
-|---|---|
-| 📋 [Deployment coverage](#deployment-coverage) | Review the workloads and controls included in the toolkit. |
-| ⚙️ [Baseline configuration](#baseline-configuration) | Review tenant settings, labels, DLP policies, retention, and AI governance. |
-| 🔐 [Required administrator roles](#required-administrator-roles) | Review the deployment account permission options. |
-| ✅ [Before deployment](#before-deployment) | Check PowerShell, configuration, permissions, and pilot preparation. |
-| 📂 [Repository structure](#repository-structure) | Find the main script, configuration file, and deployment modules. |
-| 🚀 [How to run](#how-to-run) | Validate with WhatIf and run the reviewed deployment. |
-| 🧩 [Main parameters](#main-parameters) | Review deployment options and workload switches. |
-| 📊 [Deployment summary](#deployment-summary) | Understand the stage status shown at the end of a run. |
-| 📄 [Deployment report](#deployment-report) | Review HTML reporting and custom report paths. |
-| 🔁 [Re-running the toolkit](#re-running-the-toolkit) | Review existing objects before repeating a deployment. |
-| 🔍 [Post-deployment validation](#post-deployment-validation) | Validate the configuration in the Microsoft Purview portal. |
-| 🐛 [Reporting issues](reporting-issues.md) | Report problems without disclosing tenant information. |
-| 🔐 [Security guidance](SECURITY.md) | Review credential handling, customer data, and deployment precautions. |
-| ⚠️ [Disclaimer](#disclaimer) | Review deployment responsibilities and the usage notice. |
-
 ## Deployment Coverage
 
-| Resource | Description |
-|---|---|
+| Area | Included content |
+| --- | --- |
 | 🛡️ Tenant settings | Enables the configured Microsoft Purview tenant-level settings. |
 | 🏷️ Sensitivity labels | Creates or updates the configured sensitivity label taxonomy. |
 | 📢 Label publishing policy | Publishes selected labels and configures default labeling behavior. |
@@ -74,17 +95,6 @@ Designed for organizations using Microsoft 365 Business Premium and other licens
 | 🗃️ Retention | Optionally deploys the configured Exchange retention policy. |
 | 🤖 AI governance | Deploys the configured Microsoft 365 Copilot DLP control. |
 | 📄 Reporting | Generates an HTML deployment report unless reporting is disabled. |
-
-## 🚀 Getting Started
-
-1. Review the [Baseline configuration](#baseline-configuration) and `Config\PurviewConfig.psd1`.
-2. Complete the [Before deployment](#before-deployment) checks and review the [Required administrator roles](#required-administrator-roles).
-3. Follow [How to run](#how-to-run), starting with `-WhatIf`.
-4. Review the proposed changes before running the real deployment.
-5. Complete [Post-deployment validation](#post-deployment-validation) and review the generated report.
-
-> [!WARNING]
-> Keep DLP in simulation until alerts and possible false positives have been reviewed. Retention is optional and must not be enabled without confirming the customer's legal, regulatory, and business requirements.
 
 ## Repository Structure
 
@@ -395,4 +405,14 @@ After deployment, verify the created or updated configuration in the Microsoft P
 
 Allow Microsoft 365 services time to process policy changes before completing functional tests.
 
+---
 
+<a id="documentation"></a>
+## 📚 Documentation
+
+| Documentation | Overview |
+| --- | --- |
+| 🧩 [**Main parameters**](Purview/Deploy-PurviewBestPractice.ps1#L8-L17) | Review deployment options and workload switches. |
+| 🔐 [**Security guidance**](SECURITY.md) | Review credential handling, customer data, and deployment precautions. |
+| ⚠️ [**Disclaimer**](SECURITY.md#disclaimer-and-limitation-of-liability) | Review deployment responsibilities and the usage notice. |
+| 📜 [**License**](LICENSE.md) | Read the repository license. |
