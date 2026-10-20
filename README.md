@@ -29,25 +29,7 @@ The toolkit automates tenant settings, sensitivity labels, label publishing, Dat
 
 ---
 
-## 🔑 Licensing considerations
 
-The toolkit includes workloads with different licensing requirements. Do not assume that every policy or feature is available with every Microsoft 365 subscription.
-
-| Area | What to verify before deployment |
-|---|---|
-| Sensitivity labels and publishing | Entitlement for the configured labeling and protection features. |
-| Exchange, SharePoint, and OneDrive DLP | Licensing for each selected workload and policy capability. |
-| Endpoint DLP | Licensing and device prerequisites for the configured endpoint controls. |
-| Retention | Licensing for the selected retention capabilities. |
-| Microsoft 365 Copilot DLP | Licensing and supported experiences for the configured Copilot control. |
-| Optional Premium Audit settings | Licensing for the selected audit capabilities. |
-
-Policy names use prefixes such as `BP-ALSO` and `E5-PS-ALSO`. These names help identify policy families; they are not a substitute for checking licensing.
-
-> [!IMPORTANT]
-> Verify current licensing requirements against official Microsoft licensing documentation before purchasing or deploying. This README does not certify that a subscription supports every configured feature.
-
----
 
 ## 🔑 Licensing considerations
 
@@ -85,8 +67,8 @@ Match the configured workloads to the tenant's licensing. This toolkit uses one 
 
 **Disclaimer:** Licensing and feature availability can change. Verify current Microsoft licensing documentation before purchasing or deploying.
 
-**Official reference:** [Microsoft Purview licensing guide](https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-purview-service-description)
-
+**Enterprise licenses:** [Microsoft Enterprise Plan Comparison](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/education/Modern-Work-Plan-Comparison-Enterprise.pdf)
+**SMB licenses:** [Microsoft SMB Plan Comparison](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/education/Modern-Work-Plan-Comparison-Enterprise.pdf)
 ---
 
 
