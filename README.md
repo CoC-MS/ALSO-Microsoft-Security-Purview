@@ -49,6 +49,49 @@ Policy names use prefixes such as `BP-ALSO` and `E5-PS-ALSO`. These names help i
 
 ---
 
+## 🔑 Licensing considerations
+
+### Purview licensing guide
+
+Match the configured workloads to the tenant's licensing. This toolkit uses one configuration, not separate license-specific packages.
+
+### ✅ Advanced experience — E5 / PS policies
+
+| License | Experience |
+|---|---|
+| Microsoft 365 E7 | Advanced Purview capabilities; verify selected workloads. |
+| Microsoft 365 E5 | Advanced Purview capabilities; verify selected workloads. |
+| Microsoft 365 E3 + Microsoft Purview Suite | Advanced Purview capabilities; verify add-on prerequisites. |
+| Business Premium + Microsoft Purview Suite for Business Premium | Advanced capabilities with the Business Premium-specific add-on. |
+
+### ⚠️ Limited experience — baseline capabilities
+
+| License | Experience |
+|---|---|
+| Microsoft 365 Business Premium | Manual labeling and core Microsoft 365 DLP; advanced features require additional licensing. |
+| Microsoft 365 E3 | Manual labeling and core Microsoft 365 DLP; advanced features require additional licensing. |
+| Microsoft 365 F3 | Limited coverage; verify each selected workload. |
+| Microsoft 365 F1 | Limited coverage; verify feature and workload availability. |
+
+### 👷 Frontline licensing
+
+| License | Experience |
+|---|---|
+| Microsoft 365 F1 + Purview Suite FLW | Verify FLW prerequisites and workload coverage. |
+| Microsoft 365 F3 + Purview Suite FLW | Verify FLW prerequisites and workload coverage. |
+
+> [!IMPORTANT]
+> Policy prefixes do not automatically select or exclude workloads. Review the configuration before deployment. Copilot controls, Endpoint DLP, and other advanced features require feature-specific licensing and prerequisites.
+
+**Disclaimer:** Licensing and feature availability can change. Verify current Microsoft licensing documentation before purchasing or deploying.
+
+**Official reference:** [Microsoft Purview licensing guide](https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-purview-service-description)
+
+---
+
+
+
+
 ## 📦 Toolkit components
 
 This repository contains one configurable deployment toolkit, rather than separate license-specific export packages.
