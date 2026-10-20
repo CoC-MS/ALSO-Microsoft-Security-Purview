@@ -29,20 +29,13 @@ If script execution is blocked for the current PowerShell process:
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
 
-### 2. Review the configuration
-
-Before deployment, review:
-
-```text
-Config\PurviewConfig.psd1
-```
 
 Confirm that the configured tenant settings, sensitivity labels, DLP policies, retention settings, and AI governance controls match the customer requirements.
 
 > [!WARNING]
 > Test in a pilot tenant before deploying to production. Do not assume that the baseline is suitable for every customer without reviewing the configuration.
 
-### 3. Validate with WhatIf
+### 2. Validate with WhatIf
 
 Replace the example administrator UPN with your tenant administrator UPN:
 
@@ -57,7 +50,7 @@ Review the complete console output and every proposed change before continuing.
 
 Confirm that no unexpected objects, assignments, or settings are included.
 
-### 4. Run the deployment
+### 3. Run the deployment
 
 After reviewing the WhatIf output, run the same command without `-WhatIf`:
 
@@ -70,7 +63,7 @@ After reviewing the WhatIf output, run the same command without `-WhatIf`:
 > [!WARNING]
 > This command runs the actual deployment. Confirm the destination tenant, permissions, and configuration before proceeding.
 
-### 5. Review the deployment summary
+### 4. Review the deployment summary
 
 At the end of the run, the script reports the status of the deployment stages.
 
@@ -96,7 +89,7 @@ Retention is skipped in this example because `-ApplyRetention` was not used.
 > [!IMPORTANT]
 > Review the complete console output and generated HTML report. The summary alone does not replace tenant validation.
 
-### 6. Review the deployment report
+### 5. Review the deployment report
 
 Unless `-NoReport` is specified, the toolkit attempts to generate an HTML report with a timestamped name similar to:
 
@@ -115,7 +108,7 @@ To specify a custom report path:
 
 Replace the example administrator UPN and SharePoint admin URL with the values for the destination tenant.
 
-### 7. Validate in Microsoft Purview
+### 6. Validate in Microsoft Purview
 
 After deployment, verify the created or updated configuration in the Microsoft Purview portal:
 
