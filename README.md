@@ -1,4 +1,4 @@
-# 🛡️ ALSO Microsoft Purview Best Practice Deployment Toolkit
+# 🛡️ ALSO Microsoft Security Purview 
 
 A PowerShell-based toolkit that helps organizations deploy a reusable Microsoft Purview security and compliance baseline.
 
