@@ -34,36 +34,33 @@ The toolkit automates tenant settings, sensitivity labels, label publishing, Dat
 ## 🔑 Licensing considerations
 
 ### Purview licensing guide
+Choose one standalone package.
 
-Match the configured workloads to the tenant's licensing. This toolkit uses one configuration, not separate license-specific packages.
+### ✅ (Full Experience) E5 tag
 
-### ✅ Advanced experience — E5 / PS policies
+| License | Supported | Policy types |
+|---|---|---|
+| Microsoft 365 E7 | ✅ Full support | All policy types |
+| Microsoft 365 E5 | ✅ Full support | All policy types |
+| Microsoft 365 E3 + Purview Suite | ✅ Full support | All policy types |
+| Business Premium + Purview Suite | ✅ Full support | All policy types |
 
-| License | Experience |
+### ⚠️ (Limited Experience) BP tag
+
+Designed for organizations using Microsoft 365 Business Premium and other licenses with partial feature compatibility.
+
+| License | Supported Features |
 |---|---|
-| Microsoft 365 E7 | Advanced Purview capabilities; verify selected workloads. |
-| Microsoft 365 E5 | Advanced Purview capabilities; verify selected workloads. |
-| Microsoft 365 E3 + Microsoft Purview Suite | Advanced Purview capabilities; verify add-on prerequisites. |
-| Business Premium + Microsoft Purview Suite for Business Premium | Advanced capabilities with the Business Premium-specific add-on. |
+| Microsoft 365 Business Premium | ⚠️ Supported with limitations (without full DLP experience and auto-labelling) |
+| Microsoft 365 E3 | ⚠️ Supported with limitations (without full DLP experience and auto-labelling) |
+| Microsoft 365 F3 | ⚠️ Supported with limitations (without full DLP experience and auto-labelling) |
+| Microsoft 365 F1 + Purview Suite FLW | ⚠️ Supported with limitations (except e-DLP policies) |
+| Microsoft 365 F3 + Purview Suite FLW | ⚠️ Supported with limitations (except e-DLP policies) |
+| Microsoft 365 F1 | ⚠️ Sensitivity labels only. |
 
-### ⚠️ Limited experience — baseline capabilities
+> **Important:** Defender Suite add-on are needed for full e-DLP experience for Microsoft 365 F1 and F3 users with Purview Suite.
 
-| License | Experience |
-|---|---|
-| Microsoft 365 Business Premium | Manual labeling and core Microsoft 365 DLP; advanced features require additional licensing. |
-| Microsoft 365 E3 | Manual labeling and core Microsoft 365 DLP; advanced features require additional licensing. |
-| Microsoft 365 F3 | Limited coverage; verify each selected workload. |
-| Microsoft 365 F1 | Limited coverage; verify feature and workload availability. |
-
-### 👷 Frontline licensing
-
-| License | Experience |
-|---|---|
-| Microsoft 365 F1 + Purview Suite FLW | Verify FLW prerequisites and workload coverage. |
-| Microsoft 365 F3 + Purview Suite FLW | Verify FLW prerequisites and workload coverage. |
-
-> [!IMPORTANT]
-> Policy prefixes do not automatically select or exclude workloads. Review the configuration before deployment. Copilot controls, Endpoint DLP, and other advanced features require feature-specific licensing and prerequisites.
+> **Important:** Microsoft 365 F1 doesn't support Sensitivite information types (SIT's), auto retention and labelling and DLP. Only sensitivity labels.
 
 **Disclaimer:** Licensing and feature availability can change. Verify current Microsoft licensing documentation before purchasing or deploying.
 
