@@ -8,6 +8,7 @@ The toolkit automates tenant settings, sensitivity labels, label publishing, Dat
 > This baseline is a starting point, not a ready-made configuration for every tenant. Review licensing, permissions, settings, assignments, and customer requirements. Always start with `-WhatIf`, test in a pilot tenant, and review the proposed changes before deployment.
 
 ## 🚀 Getting started
+1. Prepare before you configure: Read the [Purview Readiness & Preparation Guide](docs/public/purview-readiness-preparation-guide.md) to identify prerequisites, define data classification and responsibilities, and plan the required tenant, endpoint, and network configuration.
 1. Review [Purview Policies: Purpose, Configuration & Impact](docs/public/purview-policies-purpose-configuration-impact.md) to understand what each policy does, where it applies, and how it is configured.
 2. Review [Deployment coverage](docs/public/deployment-coverage.md) and complete [Before deployment](docs/public/before-deployment.md).
 3. Review the licensing considerations below and confirm the requirements for the selected workloads.
