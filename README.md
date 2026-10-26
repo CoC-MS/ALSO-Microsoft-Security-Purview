@@ -8,12 +8,12 @@ The toolkit automates tenant settings, sensitivity labels, label publishing, Dat
 > This baseline is a starting point, not a ready-made configuration for every tenant. Review licensing, permissions, settings, assignments, and customer requirements. Always start with `-WhatIf`, test in a pilot tenant, and review the proposed changes before deployment.
 
 ## 🚀 Getting started
-
-1. Review [Deployment coverage](docs/public/deployment-coverage.md) and complete [Before deployment](docs/public/before-deployment.md).
-2. Review the licensing considerations below and confirm the requirements for the selected workloads.
-3. Review [Baseline configuration](docs/public/baseline-configuration.md) and adapt [PurviewConfig.psd1](Purview/Config/PurviewConfig.psd1) to the customer requirements.
-4. Follow [How to run](docs/public/how-to-run.md), including the video tutorial, and start with `-WhatIf`.
-5. Review the deployment output and HTML report, validate the resulting tenant configuration, and assess DLP simulation results before enabling enforcement.
+1. Review [Purview Policies: Purpose, Configuration & Impact](docs/public/purview-policies-purpose-configuration-impact.md) to understand what each policy does, where it applies, and how it is configured.
+2. Review [Deployment coverage](docs/public/deployment-coverage.md) and complete [Before deployment](docs/public/before-deployment.md).
+3. Review the licensing considerations below and confirm the requirements for the selected workloads.
+4. Review [Baseline configuration](docs/public/baseline-configuration.md) and adapt [PurviewConfig.psd1](Purview/Config/PurviewConfig.psd1) to the customer requirements.
+5. Follow [How to run](docs/public/how-to-run.md), including the video tutorial, and start with `-WhatIf`.
+6. Review the deployment output and HTML report, validate the resulting tenant configuration, and assess DLP simulation results before enabling enforcement.
 
 ### Quick navigation
 
