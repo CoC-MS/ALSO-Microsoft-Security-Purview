@@ -61,7 +61,7 @@ Designed for organizations using Microsoft 365 Business Premium and other licens
 
 > **Important:** Defender Suite add-on are needed for full e-DLP experience for Microsoft 365 F1 and F3 users with Purview Suite.
 
-> **Important:** Microsoft 365 F1 doesn't support Sensitivite information types (SIT's), auto retention and labelling and DLP. Only sensitivity labels.
+> **Important:** Microsoft 365 F1 doesn't support Sensitivite information types (SIT's), auto retention and labelling and DLP. Only manual sensitivity labels.
 
 **Disclaimer:** Licensing and feature availability can change. Verify current Microsoft licensing documentation before purchasing or deploying.
 
